@@ -1,148 +1,578 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ghar Ka Ghee Gulbarga</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #fff8f0;
-            color: #333;
-        }
-        header {
-            background: linear-gradient(135deg, #f4c430, #f7e7a9);
-            text-align: center;
-            padding: 2rem;
-            color: #2c2c2c;
-        }
-        header h1 { font-size: 2.8rem; margin: 0; }
-        header p { font-size: 1.2rem; margin-top: 0.5rem; }
-        section {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        h2 {
-            border-bottom: 2px solid #f4c430;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            color: #444;
-        }
-        .price-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        .item {
-            background: #fff8e1;
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .item img { max-width: 150px; margin-bottom: 0.5rem; border-radius: 8px; }
-        .item h3 { margin: 0.5rem 0; font-size: 1.1rem; color: #222; }
-        .item p { font-size: 1rem; color: #555; }
-        .order-btn {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.8rem 1.5rem;
-            background: #25D366;
-            color: #fff;
-            font-weight: bold;
-            border-radius: 8px;
-            text-decoration: none;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            transition: background 0.3s ease;
-        }
-        .order-btn:hover { background: #128C7E; }
-        .note {
-            margin-top: 1rem;
-            font-size: 1rem;
-            color: #b22222;
-            font-weight: bold;
-            text-align: center;
-        }
-        .testimonial-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1.5rem;
-        }
-        .testimonial {
-            background: #ffffff;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .testimonial img {
-            max-width: 80px;
-            border-radius: 50%;
-            margin-bottom: 0.5rem;
-        }
-        .testimonial p { font-style: italic; color: #555; }
-        .testimonial h4 { margin-top: 0.5rem; color: #f4c430; }
-        footer {
-            background: #2c2c2c;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>Ghar Ka Ghee Gulbarga — Pure Homemade Ghee</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* -------------------- GLOBAL -------------------- */
+    :root{
+      --gold-1:#f7e7a9;
+      --gold-2:#f4c430;
+      --bg:#fff8f0;
+      --accent:#d4a017;
+      --green:#25D366;
+      --dark:#2c2c2c;
+      --muted:#777;
+      --card:#fff8e1;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg,var(--bg),#fff3d6 60%);
+      color:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* subtle ghee swirl background */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(244,196,48,0.06) 0 8%, transparent 20%),
+        radial-gradient(circle at 80% 80%, rgba(244,196,48,0.05) 0 10%, transparent 30%),
+        linear-gradient(135deg, rgba(244,196,48,0.02), rgba(244,196,48,0.00));
+      pointer-events:none;
+      z-index:0;
+    }
+
+    header{
+      position:relative;
+      z-index:1;
+      text-align:center;
+      padding:36px 18px;
+      background:linear-gradient(135deg,var(--gold-2),var(--gold-1));
+      color:var(--dark);
+      box-shadow:0 6px 20px rgba(0,0,0,0.12);
+    }
+    header h1{font-size:2.6rem;margin:0 0 6px}
+    header p{margin:0;color:rgba(44,44,44,0.9)}
+
+    main{max-width:1100px;margin:28px auto;padding:0 18px;position:relative;z-index:1}
+
+    section{
+      background:#fff;
+      border-radius:12px;
+      padding:22px;
+      margin-bottom:20px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    }
+    h2{
+      margin:0 0 12px;
+      padding-bottom:8px;
+      border-bottom:3px solid var(--gold-1);
+      color:#444;
+    }
+    p{color:var(--muted);margin:10px 0}
+
+    /* -------------------- PRODUCTS -------------------- */
+    .price-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-top:12px;
+    }
+    .item{
+      background:var(--card);
+      border-radius:10px;
+      padding:14px;
+      text-align:center;
+      box-shadow:0 4px 10px rgba(0,0,0,0.04);
+      transition:transform .22s ease, box-shadow .22s ease;
+    }
+    .item:hover{transform:translateY(-6px);box-shadow:0 10px 22px rgba(0,0,0,0.08)}
+    .item img{width:120px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:8px}
+    .item h3{margin:6px 0;font-size:1.05rem;color:#222}
+    .price{font-weight:700;color:#222;margin:6px 0}
+    .desc{font-size:0.95rem;color:var(--muted);min-height:44px}
+    .cart-btn{
+      display:inline-block;margin-top:10px;padding:8px 12px;border-radius:8px;background:var(--gold-2);
+      color:#222;font-weight:700;border:none;cursor:pointer;transition:background .18s ease;
+    }
+    .cart-btn:hover{background:var(--accent)}
+
+    /* -------------------- CART -------------------- */
+    #cart{
+      background:linear-gradient(180deg,#fffef8,#fff8e8);
+      border:1px solid rgba(212,160,23,0.08);
+    }
+    #cart h2{display:flex;align-items:center;justify-content:space-between}
+    .cart-wrap{display:flex;gap:18px;flex-wrap:wrap}
+    .cart-list{flex:1;min-width:260px}
+    .cart-summary{width:320px;min-width:260px;background:#fff;border-radius:8px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,0.04)}
+    .cart-list ul{list-style:none;padding:0;margin:0}
+    .cart-list li{display:flex;align-items:center;justify-content:space-between;padding:10px 8px;border-bottom:1px dashed rgba(0,0,0,0.04)}
+    .cart-list .meta{display:flex;gap:10px;align-items:center}
+    .qty{display:inline-flex;align-items:center;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,0.06)}
+    .qty button{background:transparent;border:0;padding:6px 8px;cursor:pointer}
+    .qty span{display:inline-block;padding:6px 8px;background:#fff;min-width:28px;text-align:center}
+    .remove{background:transparent;border:0;color:#b22222;cursor:pointer;font-weight:700}
+
+    .cart-summary p{margin:8px 0;font-weight:600}
+    .checkout-row{display:flex;gap:10px;align-items:center;margin-top:12px}
+    .checkout-btn{flex:1;padding:10px 12px;border-radius:8px;background:var(--green);color:#fff;border:0;font-weight:800;cursor:pointer}
+    .clear-btn{padding:10px 12px;border-radius:8px;background:#f4c430;border:0;color:#222;font-weight:700;cursor:pointer}
+
+    /* -------------------- MORE INFO -------------------- */
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .info-card{background:#fff8f2;padding:12px;border-radius:8px;border:1px solid rgba(244,196,48,0.06)}
+
+    /* -------------------- TESTIMONIALS -------------------- */
+    .testimonial-slider{position:relative;padding:6px}
+    .testimonial{display:none;text-align:center;padding:18px}
+    .testimonial.active{display:block}
+    .testimonial img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:4px solid var(--gold-1)}
+    .testimonial p{font-style:italic;color:var(--muted);margin:12px 0}
+    .testimonial h4{color:var(--gold-2);margin:6px 0 0}
+
+    .slider-controls{text-align:center;margin-top:8px}
+    .slider-controls button{background:var(--gold-2);border:0;padding:8px 12px;border-radius:8px;margin:0 6px;cursor:pointer}
+
+    /* -------------------- FOOTER -------------------- */
+    footer{margin-top:18px;padding:18px;text-align:center;color:#fff;background:linear-gradient(180deg,#2c2c2c,#1f1f1f)}
+    footer a{color:var(--gold-1);text-decoration:none;font-weight:700}
+
+    /* responsive tweaks */
+    @media (max-width:720px){
+      .info-grid{grid-template-columns:1fr}
+      .cart-wrap{flex-direction:column}
+      .cart-summary{width:100%}
+    }
+  </style>
 </head>
 <body>
-
-<header>
+  <header>
     <h1>✨ Ghar Ka Ghee Gulbarga ✨</h1>
-    <p>Pure, Traditional, and Homemade Taste of Ghee</p>
-    <p>🚚 Home Delivery Available Anywhere in Kalaburagi</p>
-</header>
+    <p>Pure, Traditional, Homemade Ghee — slow-cooked, hand-churned, preservative-free.</p>
+    <p style="margin-top:8px;font-weight:700">🚚 Home Delivery Available Anywhere in India — WhatsApp Checkout to <span style="color:#0b6623">+91 88801 68525</span></p>
+  </header>
 
-<section>
-    <h2>🌿 About Us</h2>
-    <p>
-        At <strong>Ghar Ka Ghee</strong>, we are dedicated to bringing you the authentic taste of tradition. 
-        Our ghee is made from fresh milk sourced from trusted farms, using age-old methods of slow cooking and hand-churning. 
-        This ensures purity, aroma, and a rich golden flavor that modern shortcuts can never replicate.
-    </p>
-    <p>
-        We never compromise on quality — our ghee is free from chemicals, preservatives, and artificial additives. 
-        Each batch is prepared with care, making it wholesome and nourishing for cooking, rituals, and health.
-    </p>
-    <p>
-        With <strong>home delivery across Kalaburagi</strong> and bulk orders available for customers across India, 
-        we make it easy for you to enjoy the goodness of pure, traditional ghee right at your doorstep.
-    </p>
-</section>
+  <main>
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>🌿 About Us</h2>
+      <p>
+        <strong>Ghar Ka Ghee</strong> is a family-run traditional ghee maker based in Kalaburagi (Gulbarga).
+        We use fresh milk from trusted local farms and follow age-old slow-cooking and hand-churning methods.
+        The result is pure, aromatic, golden ghee — perfect for cooking, rituals, and daily nourishment.
+      </p>
+      <p>
+        We never use chemicals, preservatives, or artificial flavors. Each batch is prepared with care and packed hygienically.
+        Our mission is to deliver trust, taste, and tradition in every jar.
+      </p>
+    </section>
 
-<section>
-    <h2>🐄 Cow Ghee Price List</h2>
-    <div class="price-list">
-        <div class="item"><img src="cow-ghee.jpg" alt="Cow Ghee"><h3>15 Litres</h3><p>₹14,275</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Cow%20Ghee%2015L" target="_blank">Order on WhatsApp</a></div>
-        <div class="item"><img src="cow-ghee.jpg" alt="Cow Ghee"><h3>5 Litres</h3><p>₹5,250</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Cow%20Ghee%205L" target="_blank">Order on WhatsApp</a></div>
-        <div class="item"><img src="cow-ghee.jpg" alt="Cow Ghee"><h3>900 ml</h3><p>₹1,000</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Cow%20Ghee%20900ml" target="_blank">Order on WhatsApp</a></div>
-        <div class="item"><img src="cow-ghee.jpg" alt="Cow Ghee"><h3>450 ml</h3><p>₹550</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Cow%20Ghee%20450ml" target="_blank">Order on WhatsApp</a></div>
-        <div class="item"><img src="cow-ghee.jpg" alt="Cow Ghee"><h3>100 ml</h3><p>₹120</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Cow%20Ghee%20100ml" target="_blank">Order on WhatsApp</a></div>
-    </div>
-</section>
+    <!-- DELIVERY -->
+    <section id="delivery">
+      <h2>🚚 Home Delivery Across India</h2>
+      <p>
+        We ship nationwide. For customers in Kalaburagi we offer local home delivery. For orders outside Kalaburagi we ship via trusted courier partners.
+        <strong>Minimum order for pan-India shipping: 5 litres</strong>. Extra delivery charges may apply depending on location and weight.
+      </p>
+      <p>
+        Packaging is secure and insulated for freshness. For bulk or corporate orders, contact us on WhatsApp and we'll provide a custom quote and lead time.
+      </p>
+    </section>
 
-<section>
-    <h2>🐃 Buffalo Ghee Price List</h2>
-    <div class="price-list">
-        <div class="item"><img src="buffalo-ghee.jpg" alt="Buffalo Ghee"><h3>15 Litres</h3><p>₹12,000</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Buffalo%20Ghee%2015L" target="_blank">Order on WhatsApp</a></div>
-        <div class="item"><img src="buffalo-ghee.jpg" alt="Buffalo Ghee"><h3>5 Litres</h3><p>₹4,500</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Buffalo%20Ghee%205L" target="_blank">Order on WhatsApp</a></div>
-        <div class="item"><img src="buffalo-ghee.jpg" alt="Buffalo Ghee"><h3>900 ml</h3><p>₹850</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Buffalo%20Ghee%20900ml" target="_blank">Order on WhatsApp</a></div>
-        <div class="item"><img src="buffalo-ghee.jpg" alt="Buffalo Ghee"><h3>100 ml</h3><p>₹105</p><a class="order-btn" href="https://wa.me/918880168525?text=Order%20Buffalo%20Ghee%20100ml" target="_blank">Order on WhatsApp</a></div>
-    </div>
-    <div class="note">
-        ⚠️ Extra home delivery charges apply.<br>
-        📦 For orders outside Kalaburagi (anywhere else in India), minimum order must be 5 litres or above.
-    </div>
-</section>
+    <!-- PRODUCTS: Cow Ghee -->
+    <section id="cow">
+      <h2>🐄 Cow Ghee — Price List & Details</h2>
+      <p>Our cow ghee is light, aromatic, and ideal for everyday cooking, sweets, and rituals. Made from cow milk using traditional methods.</p>
 
+      <div class="price-list" id="products">
+        <!-- Cow Ghee 15L -->
+        <div class="item" data-name="Cow Ghee 15L" data-price="14275">
+          <img src="" alt="Cow Ghee 15L" aria-hidden="true">
+          <h3>15 Litres</h3>
+          <div class="price">₹14,275</div>
+          <div class="desc">Bulk pack for weddings, temples, and large households. Long-lasting and richly flavored.</div>
+          <button class="cart-btn" onclick="addToCart('Cow Ghee 15L',14275)">Add to Cart</button>
+        </div>
+
+        <!-- Cow Ghee 5L -->
+        <div class="item" data-name="Cow Ghee 5L" data-price="5250">
+          <img src="" alt="Cow Ghee 5L" aria-hidden="true">
+          <h3>5 Litres</h3>
+          <div class="price">₹5,250</div>
+          <div class="desc">Ideal for families who prefer authentic taste for daily cooking and special dishes.</div>
+          <button class="cart-btn" onclick="addToCart('Cow Ghee 5L',5250)">Add to Cart</button>
+        </div>
+
+        <!-- Cow Ghee 900ml -->
+        <div class="item" data-name="Cow Ghee 900ml" data-price="1000">
+          <img src="" alt="Cow Ghee 900ml" aria-hidden="true">
+          <h3>900 ml</h3>
+          <div class="price">₹1,000</div>
+          <div class="desc">Perfect for everyday use — cooking, tadka, and adding richness to meals.</div>
+          <button class="cart-btn" onclick="addToCart('Cow Ghee 900ml',1000)">Add to Cart</button>
+        </div>
+
+        <!-- Cow Ghee 450ml -->
+        <div class="item" data-name="Cow Ghee 450ml" data-price="550">
+          <img src="" alt="Cow Ghee 450ml" aria-hidden="true">
+          <h3>450 ml</h3>
+          <div class="price">₹550</div>
+          <div class="desc">Handy jar for small families and gifting during festivals.</div>
+          <button class="cart-btn" onclick="addToCart('Cow Ghee 450ml',550)">Add to Cart</button>
+        </div>
+
+        <!-- Cow Ghee 100ml -->
+        <div class="item" data-name="Cow Ghee 100ml" data-price="120">
+          <img src="" alt="Cow Ghee 100ml" aria-hidden="true">
+          <h3>100 ml</h3>
+          <div class="price">₹120</div>
+          <div class="desc">Small jar for trial, rituals, or travel-sized use.</div>
+          <button class="cart-btn" onclick="addToCart('Cow Ghee 100ml',120)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS: Buffalo Ghee -->
+    <section id="buffalo">
+      <h2>🐃 Buffalo Ghee — Price List & Details</h2>
+      <p>Buffalo ghee is richer and creamier — excellent for sweets, halwa, and recipes that need a fuller mouthfeel.</p>
+
+      <div class="price-list">
+        <!-- Buffalo 15L -->
+        <div class="item" data-name="Buffalo Ghee 15L" data-price="12000">
+          <img src="" alt="Buffalo Ghee 15L" aria-hidden="true">
+          <h3>15 Litres</h3>
+          <div class="price">₹12,000</div>
+          <div class="desc">Bulk pack for sweet makers, caterers, and large rituals.</div>
+          <button class="cart-btn" onclick="addToCart('Buffalo Ghee 15L',12000)">Add to Cart</button>
+        </div>
+
+        <!-- Buffalo 5L -->
+        <div class="item" data-name="Buffalo Ghee 5L" data-price="4500">
+          <img src="" alt="Buffalo Ghee 5L" aria-hidden="true">
+          <h3>5 Litres</h3>
+          <div class="price">₹4,500</div>
+          <div class="desc">Balanced flavor for frying, sweets, and rich gravies.</div>
+          <button class="cart-btn" onclick="addToCart('Buffalo Ghee 5L',4500)">Add to Cart</button>
+        </div>
+
+        <!-- Buffalo 900ml -->
+        <div class="item" data-name="Buffalo Ghee 900ml" data-price="850">
+          <img src="" alt="Buffalo Ghee 900ml" aria-hidden="true">
+          <h3>900 ml</h3>
+          <div class="price">₹850</div>
+          <div class="desc">Creamy jar for households that prefer a richer taste.</div>
+          <button class="cart-btn" onclick="addToCart('Buffalo Ghee 900ml',850)">Add to Cart</button>
+        </div>
+
+        <!-- Buffalo 100ml -->
+        <div class="item" data-name="Buffalo Ghee 100ml" data-price="105">
+          <img src="" alt="Buffalo Ghee 100ml" aria-hidden="true">
+          <h3>100 ml</h3>
+          <div class="price">₹105</div>
+          <div class="desc">Small sample jar — great for trying buffalo ghee's richness.</div>
+          <button class="cart-btn" onclick="addToCart('Buffalo Ghee 100ml',105)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS: Pooja Ghee -->
+    <section id="pooja">
+      <h2>🕯️ Pooja Ghee — Special Sizes for Rituals</h2>
+      <p>Pooja ghee is prepared with extra care for rituals and offerings. Clean, pure, and packaged for sacred use.</p>
+
+      <div class="price-list">
+        <!-- Pooja 450ml -->
+        <div class="item" data-name="Pooja Ghee 450ml" data-price="315">
+          <img src="" alt="Pooja Ghee 450ml" aria-hidden="true">
+          <h3>450 ml (Pooja)</h3>
+          <div class="price">₹315</div>
+          <div class="desc">Perfect jar for daily pooja and small temple offerings.</div>
+          <button class="cart-btn" onclick="addToCart('Pooja Ghee 450ml',315)">Add to Cart</button>
+        </div>
+
+        <!-- Pooja 100ml -->
+        <div class="item" data-name="Pooja Ghee 100ml" data-price="150">
+          <img src="" alt="Pooja Ghee 100ml" aria-hidden="true">
+          <h3>100 ml (Pooja)</h3>
+          <div class="price">₹150</div>
+          <div class="desc">Small sacred jar for rituals, havan, and offerings.</div>
+          <button class="cart-btn" onclick="addToCart('Pooja Ghee 100ml',150)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MORE INFO -->
+    <section id="more-info">
+      <h2>💡 More Info — Benefits, Uses & Tips</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Health Benefits</h3>
+          <p>Ghee is rich in fat-soluble vitamins A, D, E and K. It supports digestion, boosts immunity, and is used in Ayurveda for nourishment and healing.</p>
+        </div>
+        <div class="info-card">
+          <h3>Cooking Tips</h3>
+          <p>Use cow ghee for light aroma and daily cooking. Use buffalo ghee for sweets and rich gravies. Add a spoon to dal or rice for enhanced flavor.</p>
+        </div>
+        <div class="info-card">
+          <h3>Storage & Shelf Life</h3>
+          <p>Store in a cool, dry place. Ghee is shelf-stable; keep the jar sealed and use a clean spoon to avoid contamination.</p>
+        </div>
+        <div class="info-card">
+          <h3>Packaging & Bulk Orders</h3>
+          <p>We offer hygienic jars and tins. For bulk orders and corporate gifting, contact us on WhatsApp for custom packing and pricing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CART -->
+    <section id="cart">
+      <h2>Your Cart <small style="font-weight:600;color:var(--muted)"> — Add items and checkout via WhatsApp</small></h2>
+
+      <div class="cart-wrap">
+        <div class="cart-list">
+          <ul id="cart-items">
+            <!-- JS will populate -->
+          </ul>
+          <p id="empty-note" style="color:var(--muted);padding:10px 6px">Your cart is empty. Add products to begin.</p>
+        </div>
+
+        <div class="cart-summary">
+          <p style="margin:0 0 6px;font-size:0.95rem;color:var(--muted)">Order Summary</p>
+          <p id="cart-total">Total: ₹0</p>
+          <div style="font-size:0.95rem;color:var(--muted);margin-top:6px">Enter your name and delivery city (optional) to include in the WhatsApp order message.</div>
+
+          <div style="margin-top:10px">
+            <input id="cust-name" type="text" placeholder="Your name (optional)" style="width:100%;padding:8px;border-radius:6px;border:1px solid #eee;margin-bottom:8px" />
+            <input id="cust-city" type="text" placeholder="Delivery city (optional)" style="width:100%;padding:8px;border-radius:6px;border:1px solid #eee" />
+          </div>
+
+          <div class="checkout-row">
+            <button class="checkout-btn" id="checkout-btn" onclick="checkout()">Checkout via WhatsApp</button>
+            <button class="clear-btn" onclick="clearCart()">Clear</button>
+          </div>
+
+          <div style="margin-top:10px;font-size:0.9rem;color:var(--muted)">
+            When you click checkout, WhatsApp will open on your device with a pre-filled message to <strong>+91 88801 68525</strong>.
+            The message will contain your order details and total. We will reply to confirm delivery charges and ETA.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <h2>💬 Testimonials</h2>
+      <div class="testimonial-slider" id="testimonial-slider">
+        <div class="testimonial active">
+          <img src="" alt="Priya">
+          <p>"The aroma and taste remind me of my grandmother’s cooking. Truly authentic!"</p>
+          <h4>- Priya, Kalaburagi</h4>
+        </div>
+        <div class="testimonial">
+          <img src="" alt="Arjun">
+          <p>"Best ghee I’ve ever had. Rich, pure, and perfect for sweets."</p>
+          <h4>- Arjun, Bengaluru</h4>
+        </div>
+        <div class="testimonial">
+          <img src="" alt="Meera">
+          <p>"I order in bulk for my restaurant. Customers love the flavor!"</p>
+          <h4>- Meera, Hyderabad</h4>
+        </div>
+      </div>
+
+      <div class="slider-controls">
+        <button onclick="prevTestimonial()">Prev</button>
+        <button onclick="nextTestimonial()">Next</button>
+      </div>
+    </section>
+
+    <!-- CONTACT & FOOTER -->
+    <section id="contact">
+      <h2>📞 Contact & Orders</h2>
+      <p><strong>WhatsApp Orders:</strong> Click checkout to send your order to <strong>+91 88801 68525</strong>.</p>
+      <p><strong>For quick orders:</strong> You can also message us directly on WhatsApp with product names and quantities.</p>
+      <p style="margin-top:8px;color:var(--muted)">We respond quickly during business hours. For bulk orders, please include delivery pin code for an accurate shipping quote.</p>
+    </section>
+
+    <footer>
+      <div style="max-width:900px;margin:0 auto">
+        <div style="font-weight:700;font-size:1.05rem">Ghar Ka Ghee Gulbarga</div>
+        <div style="margin-top:6px;color:#ddd">Pure. Traditional. Homemade.</div>
+        <div style="margin-top:8px">WhatsApp: <a href="https://wa.me/918880168525" target="_blank">+91 88801 68525</a></div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    /* -------------------- CART LOGIC -------------------- */
+    const CART_KEY = 'gkg_cart_v1';
+    let cart = loadCart();
+
+    function saveCart(){
+      try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){}
+    }
+    function loadCart(){
+      try{
+        const raw = localStorage.getItem(CART_KEY);
+        if(!raw) return [];
+        return JSON.parse(raw) || [];
+      }catch(e){ return [];}
+    }
+
+    function addToCart(name, price){
+      // if item exists, increment qty
+      const idx = cart.findIndex(i=>i.name===name);
+      if(idx>-1){
+        cart[idx].qty += 1;
+      } else {
+        cart.push({name, price: Number(price), qty:1});
+      }
+      saveCart();
+      renderCart();
+      flashMessage(`${name} added to cart`);
+    }
+
+    function removeFromCart(name){
+      cart = cart.filter(i=>i.name!==name);
+      saveCart();
+      renderCart();
+    }
+
+    function changeQty(name, delta){
+      const idx = cart.findIndex(i=>i.name===name);
+      if(idx===-1) return;
+      cart[idx].qty += delta;
+      if(cart[idx].qty < 1) cart[idx].qty = 1;
+      saveCart();
+      renderCart();
+    }
+
+    function clearCart(){
+      if(!confirm('Clear all items from cart?')) return;
+      cart = [];
+      saveCart();
+      renderCart();
+    }
+
+    function renderCart(){
+      const list = document.getElementById('cart-items');
+      const totalEl = document.getElementById('cart-total');
+      const emptyNote = document.getElementById('empty-note');
+      list.innerHTML = '';
+      if(cart.length===0){
+        emptyNote.style.display = 'block';
+        totalEl.textContent = 'Total: ₹0';
+        return;
+      }
+      emptyNote.style.display = 'none';
+      let total = 0;
+      cart.forEach(item=>{
+        total += item.price * item.qty;
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="meta">
+              <div style="width:8px;height:40px;border-radius:6px;background:linear-gradient(180deg,var(--gold-2),var(--gold-1))"></div>
+              <div>
+                <div style="font-weight:700">${escapeHtml(item.name)}</div>
+                <div style="font-size:0.9rem;color:var(--muted)">₹${item.price} each</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="qty">
+              <button onclick="changeQty('${escapeJs(item.name)}', -1)">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty('${escapeJs(item.name)}', 1)">+</button>
+            </div>
+            <div style="min-width:80px;text-align:right;font-weight:700">₹${item.price * item.qty}</div>
+            <button class="remove" onclick="removeFromCart('${escapeJs(item.name)}')">Remove</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+      totalEl.textContent = `Total: ₹${total}`;
+    }
+
+    // sanitize helpers for inline handlers
+    function escapeJs(s){
+      return s.replace(/'/g,"\\'").replace(/"/g,'\\"');
+    }
+    function escapeHtml(s){
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // initial render
+    renderCart();
+
+    // small flash message
+    function flashMessage(msg){
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.position='fixed';
+      el.style.right='18px';
+      el.style.bottom='18px';
+      el.style.background='rgba(0,0,0,0.8)';
+      el.style.color='#fff';
+      el.style.padding='10px 14px';
+      el.style.borderRadius='8px';
+      el.style.zIndex=9999;
+      document.body.appendChild(el);
+      setTimeout(()=>{ el.style.transition='opacity .4s'; el.style.opacity=0; },1400);
+      setTimeout(()=>el.remove(),2000);
+    }
+
+    /* -------------------- CHECKOUT (WhatsApp) -------------------- */
+    function checkout(){
+      if(cart.length===0){
+        alert('Your cart is empty. Add items before checkout.');
+        return;
+      }
+      const name = document.getElementById('cust-name').value.trim();
+      const city = document.getElementById('cust-city').value.trim();
+      let message = `Hello Ghar Ka Ghee,%0AI would like to place an order:%0A%0A`;
+      cart.forEach(item=>{
+        message += `• ${encodeURIComponent(item.name)} x ${item.qty} = ₹${item.price * item.qty}%0A`;
+      });
+      const total = cart.reduce((s,i)=>s + i.price * i.qty, 0);
+      message += `%0ATotal: ₹${total}%0A`;
+      if(name) message += `%0AName: ${encodeURIComponent(name)}%0A`;
+      if(city) message += `City: ${encodeURIComponent(city)}%0A`;
+      message += `%0APlease confirm delivery charges and ETA. Thank you!`;
+
+      // your WhatsApp number (country code +91, no plus sign)
+      const phone = '918880168525';
+      const url = `https://wa.me/${phone}?text=${message}`;
+      // open in new tab/window
+      window.open(url, '_blank');
+    }
+
+    /* -------------------- TESTIMONIALS -------------------- */
+    let tIndex = 0;
+    const testimonials = document.querySelectorAll('.testimonial');
+    function showTestimonial(i){
+      testimonials.forEach((t,idx)=> t.classList.toggle('active', idx===i));
+    }
+    function nextTestimonial(){
+      tIndex = (tIndex + 1) % testimonials.length;
+      showTestimonial(tIndex);
+    }
+    function prevTestimonial(){
+      tIndex = (tIndex - 1 + testimonials.length) % testimonials.length;
+      showTestimonial(tIndex);
+    }
+    // auto rotate
+    setInterval(nextTestimonial, 6000);
+
+    /* -------------------- small accessibility helpers -------------------- */
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') {
+        // clear any temporary UI if needed
+      }
+    });
+
+    /* -------------------- ensure cart persists across reloads -------------------- */
+    window.addEventListener('beforeunload', saveCart);
+  </script>
+</body>
+</html>
